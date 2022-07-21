@@ -1,6 +1,8 @@
 // ERC20 token contract
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+import "hardhat/console.sol";
+
 contract ERC20 {
     /**
         AN ERC 20 TOKEN:
