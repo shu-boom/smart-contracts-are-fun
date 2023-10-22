@@ -77,7 +77,7 @@ contract ERC20 {
 
     function transferFrom(address from, address to, uint value) external returns (bool success) {
             require(value <= balanceOf[from]);
-            require(value <= allowances[from][msg.sender]);
+            require(value <= allowances[from][msg.sender], "Insufficent Allowance");
             balanceOf[from] -= value;
             balanceOf[to] += value;
             allowances[from][msg.sender] -= value;
