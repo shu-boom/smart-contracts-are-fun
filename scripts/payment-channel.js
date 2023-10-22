@@ -27,7 +27,32 @@ async function sign(amount, contract) {
     return {message: hash, signature: sig};
 }
 
-main()
+
+async function signWithNonce(amount, nonce, receiver, contract) {
+  let hash = hre.ethers.utils.solidityKeccak256(["address", "uint256", "uint256" , "address"], [receiver, amount, nonce, contract]);
+  const testBytes = hre.ethers.utils.arrayify(hash);
+  const accounts = await hre.ethers.getSigners();
+  var sig = await accounts[0].signMessage(testBytes);
+  return {message: hash, signature: sig};
+}
+
+
+async function longlived() {
+  const accounts = await hre.ethers.getSigners();
+  var sender = accounts[0];
+  var recepient = accounts[1];
+  const PaymentChannel = await hre.ethers.getContractFactory("MultiPaymentsChannel", sender);
+  const paymentChannel = await PaymentChannel.deploy(recepient.address, {value: hre.ethers.utils.parseEther("10")});
+  await paymentChannel.deployed();
+  console.log("Balance Before", await ethers.provider.getBalance(recepient.address));
+  var sig = await signWithNonce(hre.ethers.utils.parseEther("10"), 1 ,recepient.address, paymentChannel.address);
+  await paymentChannel.connect(recepient).withdraw(hre.ethers.utils.parseEther("10"),  1 , sig.signature);
+  console.log("Balance After", await ethers.provider.getBalance(recepient.address));
+
+}
+
+
+longlived()
   .then(() => process.exit(0))
   .catch((error) => {
     console.error(error);
