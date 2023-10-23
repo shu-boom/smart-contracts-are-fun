@@ -1,5 +1,5 @@
-require("@nomiclabs/hardhat-waffle");
 require("dotenv").config();
+require("@nomicfoundation/hardhat-toolbox");
 
 const ALCHEMY_GOERLI_URL = process.env.ALCHEMY_GOERLI_URL;
 const PRIVATE_KEY_ACCOUNT_DEPLOYER = process.env.PRIVATE_KEY_ACCOUNT_DEPLOYER;
