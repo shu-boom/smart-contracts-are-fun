@@ -8,7 +8,7 @@ const { ethers } = require("hardhat");
 
 async function deployTokenFixture() {
     const [player1, player2] = await hre.ethers.getSigners();
-    const betAmount = ethers.utils.parseEther("1.0");
+    const betAmount = ethers.utils.parseEther("0.01");
     const TwentyOne = await ethers.getContractFactory("TwentyOne");
     const twentyOne = await TwentyOne.deploy(betAmount, {value: betAmount});
     const timeOut = 1; // in minutes
@@ -74,7 +74,7 @@ describe("TwentyOne contract", function () {
     describe("Guessing the number", async () => {
         async function deployTokenFixtureGuessing() {
             const [player1, player2] = await hre.ethers.getSigners();
-            const betAmount = ethers.utils.parseEther("1.0");
+            const betAmount = ethers.utils.parseEther("0.01");
             const TwentyOne = await ethers.getContractFactory("TwentyOne");
             const twentyOne = await TwentyOne.deploy(betAmount, {value: betAmount});
             const timeOut = 1; // in minutes
@@ -201,7 +201,7 @@ describe("TwentyOne contract", function () {
     describe("Cancelling", async () => {
         async function deployTokenFixtureCancel() {
             const [player1, player2] = await hre.ethers.getSigners();
-            const betAmount = ethers.utils.parseEther("1.0");
+            const betAmount = ethers.utils.parseEther("0.01");
             const TwentyOne = await ethers.getContractFactory("TwentyOne");
             const twentyOne = await TwentyOne.deploy(betAmount, {value: betAmount});
             const timeOut = 1; // in minutes
